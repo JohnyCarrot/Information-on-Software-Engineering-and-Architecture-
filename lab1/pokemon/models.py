@@ -14,7 +14,7 @@ class Pokemon(models.Model):
     type = models.CharField("Type", choices=TYPES, blank=True, null=True)
     level = models.IntegerField("Level", blank=True, null=True)
     hp = models.IntegerField("HP", blank=True, null=True)
-    note = models.TextField("Note", blank=True, null=True)
+    note = models.TextField("Description", blank=True, null=True)
     image = models.ImageField("Image", upload_to="pokemons/", blank=True, null=True)
 
     def __str__(self):
