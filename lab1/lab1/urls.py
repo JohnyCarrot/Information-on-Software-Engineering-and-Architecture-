@@ -27,7 +27,7 @@ urlpatterns = [
     path('pokemon/<int:pk>/delete/', views.delete_pokemon, name='pokemon-delete'),
 
     path('login/', auth_views.LoginView.as_view(template_name="login.html"), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('logout/', views.logout_request, name='logout'),
 ]
 
 if settings.DEBUG:

@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth import logout
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
@@ -8,9 +9,6 @@ from pokemon.models import Pokemon
 
 
 def add_form_errors_to_messages(request, form):
-    """
-    Pridá chyby z formulára do Django messages, aby boli viditeľné po redirecte.
-    """
     for field, errors in form.errors.items():
         for error in errors:
             if field == '__all__':
@@ -26,7 +24,7 @@ def index(request):
             form = PokemonForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
-                messages.success(request, "Pokémon created.")
+                messages.success(request, "Pokemon created.")
             else:
                 add_form_errors_to_messages(request, form)
             return redirect("index")
@@ -51,7 +49,7 @@ def update_pokemon(request, pk):
     form = PokemonForm(request.POST, request.FILES, instance=pokemon)
     if form.is_valid():
         form.save()
-        messages.success(request, "Pokémon updated.")
+        messages.success(request, "Pokemon updated.")
     else:
         add_form_errors_to_messages(request, form)
     return redirect("index")
@@ -61,5 +59,9 @@ def update_pokemon(request, pk):
 def delete_pokemon(request, pk):
     pokemon = get_object_or_404(Pokemon, pk=pk)
     pokemon.delete()
-    messages.success(request, "Pokémon deleted.")
+    messages.success(request, "Pokemon deleted.")
     return redirect("index")
+
+def logout_request(request):
+    logout(request)
+    return redirect('/')
