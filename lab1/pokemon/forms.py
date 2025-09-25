@@ -36,6 +36,12 @@ class PokemonForm(forms.ModelForm):
             raise forms.ValidationError("HP must be between 1 and 999.")
         return value
 
+    def clean_note(self):
+        value = self.cleaned_data.get("note")
+        if len(value) < 5:
+            raise forms.ValidationError("Description must be at least 5 characters long.")
+        return value
+
     def clean_image(self):
         image = self.cleaned_data.get("image")
         if image:

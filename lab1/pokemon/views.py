@@ -16,8 +16,16 @@ def add_form_errors_to_messages(request, form):
             else:
                 messages.warning(request, f'{form.fields[field].label}: {error}')
 
+class EmailBackendService:
+    def __init__(self):
+        self.email_credentials = "Something something"
+    def send_email(self, email,message):
+        print(message)
 
-def index(request):
+
+
+
+def index(request,email_service = EmailBackendService()):
     if request.method == "POST":
         action = request.POST.get("action")
         if action == "create":
@@ -25,6 +33,9 @@ def index(request):
             if form.is_valid():
                 form.save()
                 messages.success(request, "Pokemon created.")
+
+                if request.user.is_authenticated:
+                    email_service.send_email(request.user.email,f"Pokemon {form.instance.name} created.")
             else:
                 add_form_errors_to_messages(request, form)
             return redirect("index")
