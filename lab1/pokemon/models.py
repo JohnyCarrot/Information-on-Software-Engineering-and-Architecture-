@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib import admin
 class Pokemon(models.Model):
     TYPES = [
         ('fire', 'Fire'),
@@ -19,3 +19,4 @@ class Pokemon(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+admin.site.register(Pokemon)

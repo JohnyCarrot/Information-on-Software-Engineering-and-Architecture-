@@ -23,6 +23,7 @@ from pokemon import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('admin/', admin.site.urls, name='index'),
     path('pokemon/<int:pk>/update/', views.update_pokemon, name='pokemon-update'),
     path('pokemon/<int:pk>/delete/', views.delete_pokemon, name='pokemon-delete'),
 
@@ -32,3 +33,4 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
