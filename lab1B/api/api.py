@@ -23,15 +23,16 @@ def health(request):
 def list_cheeses(request):
     return [basic_output(c) for c in Cheese.objects.all()]
 
+@api.post("/create", response={201: CheeseOut})
+def create_cheese(request, payload: CheeseIn):
+    obj = Cheese.objects.create(**payload.dict())
+    return basic_output(obj)
+
 @api.get("/{cheese_id}", response=CheeseOut)
 def get_cheese(request, cheese_id: int):
     obj = get_object_or_404(Cheese, id=cheese_id)
     return basic_output(obj)
 
-@api.post("/create", response=CheeseOut)
-def create_cheese(request, payload: CheeseIn):
-    obj = Cheese.objects.create(**payload.dict())
-    return basic_output(obj)
 
 @api.put("/{cheese_id}", response=CheeseOut)
 def update_cheese(request, cheese_id: int, payload: CheeseIn):
