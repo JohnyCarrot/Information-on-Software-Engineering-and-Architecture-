@@ -10,11 +10,33 @@
   >
 </head>
 <body class="bg-light">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="/">Wage-Donald</a>
-    </div>
-  </nav>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="/" aria-label="Wage-Donalds">
+      <!-- SVG logo -->
+      <svg width="90" height="50" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M 10 10
+             C 25 70, 40 90, 50 90
+             C 60 90, 70 70, 80 40
+             C 90 10, 100 10, 110 40
+             C 120 70, 130 90, 140 90
+             C 150 90, 165 70, 180 10"
+          fill="none"
+          stroke="#FFC107"
+          stroke-width="14"
+          stroke-linecap="round"
+        />
+      </svg>
+
+      <span class="fw-bold fs-4" style="color: #FFC107;">Wage-Donalds</span>
+    </a>
+  </div>
+</nav>
+
+
 
   <main class="container my-4">
     {% block content %}{% endblock %}

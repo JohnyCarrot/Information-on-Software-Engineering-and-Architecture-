@@ -2,10 +2,10 @@ from typing import List, Optional
 
 from django.shortcuts import get_object_or_404
 from ninja import NinjaAPI, File, Form
-from ninja.files import UploadedFile  # <-- IMPORTANT: Ninja's UploadedFile
+from ninja.files import UploadedFile
 
 from .models import Meal
-from .schemas import MealIn, MealOut
+from .schemas import MealIn, MealOut, MealUpdate
 
 api = NinjaAPI(title="Wage-Donald API", csrf=False)
 
@@ -28,7 +28,6 @@ def create_meal(
 ):
     meal = Meal.objects.create(**payload.dict())
     if image:
-        # both direct assign or .save() work; direct assign is fine
         meal.image = image
         meal.save()
     return meal
@@ -38,7 +37,7 @@ def create_meal(
 def update_meal(
     request,
     meal_id: int,
-    payload: Form[MealIn],  # full update (frontend posiela všetky polia)
+    payload: Form[MealUpdate],
     image: Optional[UploadedFile] = File(None),
 ):
     meal = get_object_or_404(Meal, id=meal_id)
@@ -47,7 +46,7 @@ def update_meal(
         setattr(meal, field, value)
 
     if image is not None:
-        meal.image = image  # replace existing image if a file is sent
+        meal.image = image
 
     meal.save()
     return meal
